@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.PasswordEditDTO;
 import com.sky.entity.Employee;
@@ -74,6 +75,12 @@ public class EmployeeController {
         return Result.success();
     }
 
+    /**
+     * 修改密码
+     *
+     * @param passwordEditDTO
+     * @return
+     */
     @PutMapping("/editPassword")
     @ApiOperation(value = "修改密码")
     public Result<String> editPassword(@RequestBody PasswordEditDTO passwordEditDTO) {
@@ -82,4 +89,32 @@ public class EmployeeController {
         return Result.success();
     }
 
+    /**
+     * 启用、禁用员工账号
+     *
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation(value = "启用、禁用员工账号")
+    public Result<String> startOrStopEmployee(@PathVariable Integer status, String id) {
+        log.info("启用、禁用员工账号，员工状态：{}，员工id：{}", status, id);
+        employeeService.startOrStopEmployee(status, id);
+        return Result.success();
+    }
+
+    /**
+     * 新增员工
+     *
+     * @param employeeDTO
+     * @return
+     */
+    @PostMapping
+    @ApiOperation(value = "新增员工")
+    public Result addEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("新增员工：{}", employeeDTO);
+        employeeService.addEmployee(employeeDTO);
+        return Result.success();
+    }
 }
