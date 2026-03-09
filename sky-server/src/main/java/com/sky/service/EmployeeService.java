@@ -18,8 +18,6 @@ public interface EmployeeService {
 
     void editPassword(PasswordEditDTO passwordEditDTO);
 
-    void startOrStopEmployee(Integer status, String id);
-
     /**
      * 新增员工
      * @param employeeDTO
@@ -32,4 +30,6 @@ public interface EmployeeService {
      * @return
      */
     PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    void startOrStop(Integer status, Long id);
 }

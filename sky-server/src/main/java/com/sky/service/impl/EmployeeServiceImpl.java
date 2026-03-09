@@ -98,13 +98,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.updatePasswordById(passwordEditDTO.getEmpId(),newPassword);
     }
 
+    /**
+     * 启用、禁用员工账号
+     *
+     * @param status
+     * @param id
+     */
     @Override
-    public void startOrStopEmployee(Integer status, String id) {
-        long longId = Long.parseLong(id); // 将字符串 ID 转为长整型
+    public void startOrStop(Integer status, Long id) {
         if(!(status.equals(0)||status.equals(1))){
             throw new RuntimeException("状态值错误");
         }
-        employeeMapper.setStatusById(longId, status);
+        Employee employee = new Employee();
+        employee.setId(id);
+        employee.setStatus(status);
+        employeeMapper.update(employee);
     }
 
     /**
